@@ -40,27 +40,16 @@ app.get("/resForm", function(req, res) {
   res.sendFile(path.join(__dirname, "resForm.html"));
 });
 
+
 // Search for Specific Character (or all characters) - provides JSON
-app.get("/api/:tables?", function(req, res) {
-  var table = req.params.tables;
+app.get("/api/:responses?", function(req, res) {
+  var response = req.params.responses;
 
-  if (table) {
-    console.log(chosen);
-
-    switch (chosen) {
-      case "reservations":
-        return reservations();
-
-      case "waitlist":
-        return waitlist();
-
-      default:
-        break;
+    if(response === "table"){
+        return res.json(reservations);
+    } else {
+        return res.json(waitlist);
     }
-
-    return res.json(false);
-  }
-  return res.json(reservations);
 });
 
 // Create New Characters - takes in JSON input
